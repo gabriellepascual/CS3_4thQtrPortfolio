@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Movie Rating</title>
+
+    <meta name="description" content="Movie Rating">
+    <meta name="author" content="Gabrielle Pascual">
+
+    <link rel="stylesheet" href="q41gRubidiumPascual.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Add a Movie</h1>
+
+    <form id="movieForm">
+
+        <label>Title:</label>
+        <input type="text" id="movieTitle" required>
+
+        <label>Year:</label>
+        <input type="text" id="movieYear" required>
+
+        <label>Genre:</label>
+        <select id="movieGenre">
+            <option>Select</option>
+            <option>Action</option>
+            <option>Comedy</option>
+            <option>Drama</option>
+            <option>Fantasy</option>
+            <option>Horror</option>
+            <option>Mystery</option>
+            <option>Romance</option>
+            <option>Thriller</option>
+        </select>
+
+        <label>Rating:</label>
+
+        <div id="starContainer">
+            <span class="star" onclick="setRating(1)">★</span>
+            <span class="star" onclick="setRating(2)">★</span>
+            <span class="star" onclick="setRating(3)">★</span>
+            <span class="star" onclick="setRating(4)">★</span>
+            <span class="star" onclick="setRating(5)">★</span>
+        </div>
+
+        <button type="submit">Add Movie</button>
+
+    </form>
+
+    <h2>Movie List</h2>
+
+    <div id="listMovies"></div>
+
+</div>
+
+<script src="q41gRubidiumPascual.js"></script>
+
+</body>
+</html>
