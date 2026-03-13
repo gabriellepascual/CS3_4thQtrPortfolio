@@ -71,3 +71,21 @@ button:hover{
 
     background: #faf5ff;
 }
+
+.delete-btn{
+    width: 100%;
+    padding: 10px;
+
+    background: #7c3aed;
+    color: white;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.delete-btn:hover{
+    background: #6d28d9;
+}
