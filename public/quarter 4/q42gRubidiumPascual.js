@@ -1,97 +1,103 @@
-let rating = 0
+let stars = document.querySelectorAll(".star");
+let rating = 0;
 
-const stars = document.querySelectorAll("#stars span")
+function setRating(value){
 
-stars.forEach(star => {
-    star.addEventListener("click", () => {
-        rating = star.dataset.value
+    rating = value;
 
-        stars.forEach(s => s.style.color="lightgray")
-
-        for(let i=0;i<rating;i++){
-            stars[i].style.color="gold"
+    stars.forEach((star, index)=>{
+        if(index < value){
+            star.classList.add("active");
+        }else{
+            star.classList.remove("active");
         }
-    })
-})
+    });
 
-let movies = JSON.parse(localStorage.getItem("movies")) || []
-
-displayMovies()
-
-function addMovie(){
-
-let title = document.getElementById("title").value
-let year = document.getElementById("year").value
-let genre = document.getElementById("genre").value
-
-if(title=="" || year=="" || rating==0){
-    alert("Please complete the form")
-    return
 }
 
-let existingMovie = movies.find(movie => movie.title.toLowerCase() === title.toLowerCase())
+let movieList = JSON.parse(localStorage.getItem("movies")) || [];
 
-if(existingMovie){
+displayMovies();
 
-    let avg = Math.round((parseInt(existingMovie.rating) + parseInt(rating)) / 2)
+const form = document.getElementById("movieForm");
 
-    existingMovie.year = year
-    existingMovie.genre = genre
-    existingMovie.rating = avg
+form.addEventListener("submit", function(event){
 
-}else{
+    event.preventDefault();
 
-    let movie = {
-        title:title,
-        year:year,
-        genre:genre,
-        rating:rating
+    const title = document.getElementById("movieTitle").value;
+    const year = document.getElementById("movieYear").value;
+    const genre = document.getElementById("movieGenre").value;
+
+    let existingMovie = movieList.find(movie => movie.title.toLowerCase() === title.toLowerCase());
+
+    if(existingMovie){
+
+        existingMovie.year = year;
+        existingMovie.genre = genre;
+
+        existingMovie.rating = Math.round((existingMovie.rating + rating) / 2);
+
+    }else{
+
+        const movie = {
+            title: title,
+            year: year,
+            genre: genre,
+            rating: rating
+        };
+
+        movieList.push(movie);
     }
 
-    movies.push(movie)
-}
+    localStorage.setItem("movies", JSON.stringify(movieList));
 
-localStorage.setItem("movies", JSON.stringify(movies))
+    displayMovies();
 
-displayMovies()
+    form.reset();
+    rating = 0;
 
-clearForm()
-}
+    stars.forEach(star=>{
+        star.classList.remove("active");
+    });
+
+});
 
 function displayMovies(){
 
-let list = document.getElementById("movieList")
-list.innerHTML=""
+    const list = document.getElementById("listMovies");
 
-movies.forEach((movie,index) => {
+    list.innerHTML = "";
 
-let starsDisplay = "★".repeat(movie.rating)
+    movieList.forEach((movie, index)=>{
 
-list.innerHTML += `
-<div class="movie-item">
-${movie.title} (${movie.year}) - ${movie.genre}, Rating:
-<span class="movie-stars">${starsDisplay}</span>
+        let starDisplay = "";
 
-<button class="delete-btn" onclick="deleteMovie(${index})">Delete</button>
-</div>` })
-}
+        for(let i=0;i<movie.rating;i++){
+            starDisplay += `<span style="color:gold;">★</span>`;
+        }
 
-function clearForm(){
-document.getElementById("title").value=""
-document.getElementById("year").value=""
-rating=0
-stars.forEach(s => s.style.color="lightgray")
+        list.innerHTML += `
+        <div class="movie">
+        ${movie.title} (${movie.year}) - ${movie.genre}, Rating: ${starDisplay}
+        <button onclick="deleteMovie(${index})">Delete</button>
+        </div>
+        `;
+
+    });
+
 }
 
 function deleteMovie(index){
 
-let confirmDelete = confirm("Are you sure you want to delete?")
+    let confirmDelete = confirm("Are you sure you want to delete?");
 
-if(confirmDelete){
+    if(confirmDelete){
 
-movies.splice(index,1)
+        movieList.splice(index,1);
 
-localStorage.setItem("movies", JSON.stringify(movies))
+        localStorage.setItem("movies", JSON.stringify(movieList));
 
-displayMovies() }
+        displayMovies();
+    }
 }
