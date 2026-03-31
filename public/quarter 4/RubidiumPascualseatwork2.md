@@ -79,7 +79,7 @@
 
 - Add in html ```<div class="notice">Notice!</div>``` and include the css below:
 
-```css
+```css 
 .notice {
     position: absolute;
     top: 60px;
