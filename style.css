@@ -68,5 +68,15 @@ body {
 
 .pony2 {
   bottom: 140px;
-  right: 10%;
+  right: 30%;
+}
+
+.pony3 {
+  bottom: 200px;
+  left: 30%;
+}
+
+.pony4 {
+  bottom: 160px;
+  right: 2%;
 }
