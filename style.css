@@ -63,20 +63,20 @@ body {
 
 .pony1 {
   bottom: 180px;
-  left: 10%;
+  left: 5%;
 }
 
 .pony2 {
-  bottom: 140px;
-  right: 30%;
+  bottom: 220px;
+  left: 25%;
 }
 
 .pony3 {
-  bottom: 200px;
-  left: 30%;
+  bottom: 160px;
+  right: 2%;
 }
 
 .pony4 {
-  bottom: 160px;
-  right: 2%;
+  bottom: 140px;
+  right: 30%;
 }
