@@ -1,60 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Add a Movie</title>
+  <title>Q4 1st Graded - Movie Rating</title>
 
-    <meta name="description" content="Movie Rating">
-    <meta name="author" content="Gabrielle Pascual">
+  <meta name="description" content="Movie Rating 1st Graded.">
+  <meta name="author" content="Rb02 - Emmanuel Jr. Bansil">
 
-    <link rel="stylesheet" href="q41gRubidiumPascual.css">
+  <link rel="stylesheet" href="q42gRubidiumPascual.css">
 </head>
 
 <body>
+    <div style="padding:10px 30px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);width:30%;margin: auto;">
+        <h1 style="font-family: sans-serif;text-align: center;">
+            Add / Update a Movie Rating
+        </h1>
+        <form>
+            <label> <p style="font-family: sans-serif;"> <b> Title: </b> </p> </label>
+            <input type="text" style="width: 100%;" id="movieTitle"> </input>
 
-<div class="container">
+            <label> <p style="font-family: sans-serif;"> <b> Year: </b> </p> </label>
+            <input type="text" style="width: 100%;" id="movieYear"> </input>
 
-    <h1>Add a Movie</h1>
+            <label> <p style="font-family: sans-serif;"> <b> Genre: </b> </p> </label>
+            <select id="movieGenre" style="width: 100%;" >
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <option value="Fantasy">Fantasy</option>
+                <option value="Horror">Horror</option>
+                <option value="Mystery">Mystery</option>
+                <option value="Romance">Romance</option>
+                <option value="Thriller">Thriller</option>
+            </select>
 
-    <form id="movieForm">
+            <label> <p style="font-family: sans-serif;"> <b> Rating: </b> </p> </label>
+            <span onclick="gfg(1)" class="star">★</span>
+            <span onclick="gfg(2)" class="star">★</span>
+            <span onclick="gfg(3)" class="star">★</span>
+            <span onclick="gfg(4)" class="star">★</span>
+            <span onclick="gfg(5)" class="star">★</span>
 
-        <label>Title:</label>
-        <input type="text" id="movieTitle" required>
+            <input type="submit" style="width:100%;" value="Add Movie">
+        </form>
+        <h1 style="font-family: sans-serif;text-align: center;">
+            Movie List
+        </h1>
+        <div id="listMovies" style="font-family: sans-serif;"> </div>
+    </div>
 
-        <label>Year:</label>
-        <input type="text" id="movieYear" required>
-
-        <label>Genre:</label>
-        <select id="movieGenre">
-            <option>Select</option>
-            <option>Action</option>
-            <option>Comedy</option>
-            <option>Drama</option>
-            <option>Horror</option>
-            <option>Romance</option>
-            <option>Sci-Fi</option>
-        </select>
-
-        <label>Rating:</label>
-
-        <div id="starContainer">
-            <span class="star" onclick="setRating(1)">★</span>
-            <span class="star" onclick="setRating(2)">★</span>
-            <span class="star" onclick="setRating(3)">★</span>
-            <span class="star" onclick="setRating(4)">★</span>
-            <span class="star" onclick="setRating(5)">★</span>
-        </div>
-
-        <button type="submit">Add Movie</button>
-
-    </form>
-
-    <h2>Movie List</h2>
-
-    <div id="listMovies"></div>
-
-</div>
-
-<script src="q41gRubidiumPascual.js"></script>
-
+    <script src="q42gRubidiumPascual.js"></script>
 </body>
-</html>

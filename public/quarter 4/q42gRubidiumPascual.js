@@ -1,103 +1,86 @@
-let stars = document.querySelectorAll(".star");
-let rating = 0;
+let stars = 
+    document.getElementsByClassName("star");
 
-function setRating(value){
+let rate = 0
 
-    rating = value;
-
-    stars.forEach((star, index)=>{
-        if(index < value){
-            star.classList.add("active");
-        }else{
-            star.classList.remove("active");
-        }
-    });
-
+function gfg(n) {
+    remove();
+    for (let i = 0; i < n; i++) {
+        if (n == 1) cls = "one";
+        else if (n == 2) cls = "two";
+        else if (n == 3) cls = "three";
+        else if (n == 4) cls = "four";
+        else if (n == 5) cls = "five";
+        stars[i].className = "star " + cls;
+    }
+    rate = n
 }
 
-let movieList = JSON.parse(localStorage.getItem("movies")) || [];
+function remove() {
+    let i = 0;
+    while (i < 5) {
+        stars[i].className = "star";
+        i++;
+    }
+}
 
-displayMovies();
+let movieList = JSON.parse(localStorage.getItem("savedMovieList")) || []
 
-const form = document.getElementById("movieForm");
+displayMovies(movieList);
 
-form.addEventListener("submit", function(event){
+const form = document.querySelector('form');
 
+form.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const title = document.getElementById("movieTitle").value;
-    const year = document.getElementById("movieYear").value;
-    const genre = document.getElementById("movieGenre").value;
+    let exists = false;
 
-    let existingMovie = movieList.find(movie => movie.title.toLowerCase() === title.toLowerCase());
-
-    if(existingMovie){
-
-        existingMovie.year = year;
-        existingMovie.genre = genre;
-
-        existingMovie.rating = Math.round((existingMovie.rating + rating) / 2);
-
-    }else{
-
-        const movie = {
-            title: title,
-            year: year,
-            genre: genre,
-            rating: rating
-        };
-
-        movieList.push(movie);
+    for (let i=0; i<movieList.length; i++) {
+        if (movieList[i].title.toLowerCase() == movieTitle.value.toLowerCase()) {
+            movieList[i].rating = Math.round((Number(movieList[i].rating) + rate) / 2);
+            exists = true;
+            break;
+        }
     }
 
-    localStorage.setItem("movies", JSON.stringify(movieList));
+    if (!exists) {
+        movieList.push({
+            title: movieTitle.value,
+            year: movieYear.value,
+            genre: movieGenre.value,
+            rating: rate
+        });
+    }
 
-    displayMovies();
+    localStorage.setItem("savedMovieList", JSON.stringify(movieList)); 
+    displayMovies(movieList);
+})
 
-    form.reset();
-    rating = 0;
+function displayMovies(movieList) {
+    displayList = "";
 
-    stars.forEach(star=>{
-        star.classList.remove("active");
-    });
+    for (let m = 0; m < movieList.length; m++) {
+        let idx = 0;
+        let stars = ``;
 
-});
-
-function displayMovies(){
-
-    const list = document.getElementById("listMovies");
-
-    list.innerHTML = "";
-
-    movieList.forEach((movie, index)=>{
-
-        let starDisplay = "";
-
-        for(let i=0;i<movie.rating;i++){
-            starDisplay += `<span style="color:gold;">★</span>`;
+        while (idx < Number(movieList[m].rating)){
+            stars += `<span style="color:gold;">★</span>`;
+            idx++;
         }
 
-        list.innerHTML += `
-        <div class="movie">
-        ${movie.title} (${movie.year}) - ${movie.genre}, Rating: ${starDisplay}
-        <button onclick="deleteMovie(${index})">Delete</button>
-        </div>
-        `;
+        displayList += `<div class="movie">${movieList[m].title} (${movieList[m].year}) - ${movieList[m].genre}, Rating: ${stars} <button id="deleteMovie" onclick="delMovie()"> Delete </button> </div>`;
+    }
 
-    });
-
+    listMovies.innerHTML = displayList;
 }
 
-function deleteMovie(index){
-
-    let confirmDelete = confirm("Are you sure you want to delete?");
-
-    if(confirmDelete){
-
-        movieList.splice(index,1);
-
-        localStorage.setItem("movies", JSON.stringify(movieList));
-
-        displayMovies();
+function delMovie(idx) {
+    let delConfirm = confirm("Are you sure you want to delete?")
+    if (delConfirm) {
+        movieList.splice(idx, 1);
+        localStorage.setItem("savedMovieList", JSON.stringify(movieList)); 
+        displayMovies(movieList);
+    } else {
+        alert("Deletion cancelled.")
     }
 }
